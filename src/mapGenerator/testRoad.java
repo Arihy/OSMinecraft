@@ -29,7 +29,7 @@ public class testRoad {
 		
 		int pointDx = 2, pointDy = 2, pointFx = sizeX-1, pointFy = sizeZ-1;
 		
-		RoadGenerator.traceRoute(pointDx, pointDy, pointFx, pointFy, 3, map);
+		RoadGenerator.traceRouteDroite(pointDx, pointDy, pointFx, pointFy, 3, map, sizeX, sizeZ);
 		
 		map.setSpawn(0, 0, 70);
 		map.save();

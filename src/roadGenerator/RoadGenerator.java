@@ -42,8 +42,9 @@ public class RoadGenerator {
 		}
 	}
 	
-	public static void traceRoute() throws BadStateException
+	public static void traceRoute(int x1, int z1, int x2, int z2, int blockY, Map map, int sizeX, int sizeZ) throws BadStateException
 	{
-		
+		traceRouteDroite(x1, z1, ((x1+x2)/2)+3, (z1+z2)/2, blockY, map, sizeX, sizeZ);
+		traceRouteDroite(((x1+x2)/2)+3, (z1+z2)/2, x2, z2, blockY, map, sizeX, sizeZ);
 	}
 }

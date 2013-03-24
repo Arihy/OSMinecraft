@@ -12,8 +12,8 @@ public abstract class Perlin {
 	
 	public static void appliquePerlin(Map monde,int range){
 		int[][] hauteur = perlin(monde.getSize());
-		for(int x=0;x<500;x++){
-			for(int z=0;z<500;z++){
+		for(int x=0;x<monde.getSize()[0];x++){
+			for(int z=0;z<monde.getSize()[1];z++){
 				int h = (int)( 64 + (double)( range*(128-Math.abs(hauteur[x][z]))/128 ) );
 				for(int y=0;y<h;y++){
 					monde.setBlock(x, z, y, (short)(3));

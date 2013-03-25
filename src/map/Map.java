@@ -11,7 +11,6 @@ import map.exceptions.BadStateException;
 
 public class Map
 {
-	private boolean mIsLoaded = false; // map chargé ?
 	private MapSerial mMap; // données de la map actuelle
 
 	/**
@@ -59,7 +58,6 @@ public class Map
 	 */
 	public void create(String mapURL, int blocksX,int blocksZ, int mapHeight)
 	{
-		mIsLoaded = true;
 		mMap = new MapSerial();
 		mMap.size = new int[3];
 		mMap.size[0] = blocksX;
@@ -115,14 +113,12 @@ public class Map
 			mMap = (MapSerial) ois.readObject(); // Lecture sur le flux d'objet et cast en MapSerial
 			ois.close(); // fermeture du flux d'objet
 			fichier.close(); // fermeture du flux de fichier
-			mIsLoaded = true;
 			mMap.URL = mapURL;
 		}
 		catch (ClassNotFoundException e)
 		{
 			e.printStackTrace();
 		}
-
 	}
 	/**
 	 * 
@@ -130,7 +126,7 @@ public class Map
 	 */
 	public boolean isLoaded()
 	{
-		return mIsLoaded;
+		return mMap!=null;
 	}
 	/**
 	 * permet de verifier si une map est bien chargé
@@ -140,6 +136,18 @@ public class Map
 	{
 		if (!isLoaded())
 			throw new BadStateException("No map loaded");
+	}
+	public int getHeight(int x,int z) throws BadStateException
+	{
+		if (!isLoaded())
+			throw new BadStateException("No map loaded");
+		for (int i=mMap.size[2]-1;i>=0;i--)
+		{
+			if (getBlock(x, z, i) != 0)
+				return i+1;
+
+		}
+		return 0;
 	}
 	/**
 	 * permet de recuperer un bloc dans la map
@@ -153,10 +161,10 @@ public class Map
 	public short getBlock(int blockX, int blockZ, int blockY) throws BadStateException
 	{
 		checkLoaded();
-		if (blockX < 0 || blockX > mMap.size[0] || blockZ < 0 || blockZ > mMap.size[1] || blockY < 0 || blockY > mMap.size[2])
+		if (blockX < 0 || blockX >= mMap.size[0] || blockZ < 0 || blockZ >= mMap.size[1] || blockY < 0 || blockY >= mMap.size[2])
 			return -1;
 		else
-			return readMap(mMap.blocks, blockX%16, blockZ%16, blockY, mMap.size[1], mMap.size[2]);
+			return readMap(mMap.blocks, blockX, blockZ, blockY, mMap.size[1], mMap.size[2]);
 	}
 	/**
 	 * permet de recuperer un chunk entier a la position indique
@@ -258,5 +266,4 @@ public class Map
 	{
 		chunk[(bx*(16*nbBlocksY))+(bz*nbBlocksY)+by] = val;
 	}
-
 }

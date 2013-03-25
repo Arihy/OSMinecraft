@@ -1,4 +1,4 @@
-package roadGenerator;
+package openstreetcraft.buildingGenerator;
 
 import map.Map;
 import map.exceptions.BadStateException;

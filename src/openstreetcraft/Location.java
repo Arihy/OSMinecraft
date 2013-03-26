@@ -1,4 +1,4 @@
-package generators;
+package openstreetcraft;
 
 public class Location implements Cloneable {
 	
@@ -10,6 +10,13 @@ public class Location implements Cloneable {
 		this.x = 0;
 		this.y = 0;
 		this.z = 0;
+	}
+	
+	public Location(int x,int z){
+		
+		this.x = x;
+		this.z = z;
+		this.y = 0;
 	}
 
 	public Location(int x, int y, int z) {

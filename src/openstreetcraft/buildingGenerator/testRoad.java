@@ -1,13 +1,13 @@
-package mapGenerator;
+package openstreetcraft.buildingGenerator;
 
 import java.io.IOException;
 
-import roadGenerator.RoadGenerator;
 
 import map.Map;
 import map.exceptions.BadStateException;
 
 public class testRoad {
+	@SuppressWarnings("unused")
 	private static void testCreate() throws BadStateException, IOException
 	{
 		int sizeX = 50;
@@ -37,7 +37,7 @@ public class testRoad {
 		System.out.println("save complete!");
 	}
 	
-	public static void main(String[] args)
+	/*public static void main(String[] args)
 	{
 		try
 		{
@@ -51,6 +51,6 @@ public class testRoad {
 		{
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 }

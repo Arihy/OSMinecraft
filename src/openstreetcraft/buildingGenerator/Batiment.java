@@ -1,7 +1,8 @@
-package generators;
+package openstreetcraft.buildingGenerator;
 
 import java.util.Vector;
 import map.Map;
+import openstreetcraft.Location;
 
 public class Batiment {
 	

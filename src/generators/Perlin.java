@@ -2,6 +2,7 @@ package generators;
 
 import java.util.Random;
 import map.Map;
+import map.exceptions.BadStateException;
 
 public abstract class Perlin {
 
@@ -11,18 +12,23 @@ public abstract class Perlin {
 	}
 	
 	public static void appliquePerlin(Map monde,int range){
-		int[][] hauteur = perlin(monde.getSize());
-		for(int x=0;x<monde.getSize()[0];x++){
-			for(int z=0;z<monde.getSize()[1];z++){
-				int h = (int)( 64 + (double)( range*(128-Math.abs(hauteur[x][z]))/128 ) );
-				for(int y=0;y<h;y++){
-					monde.setBlock(x, z, y, (short)(3));
-				}
-				monde.setBlock(x, z, h, (short)(2));
-				for(int y=h+1;y<64;y++){
-					monde.setBlock(x, z, y, (short)(8));
+		int[][] hauteur;
+		try {
+			hauteur = perlin(monde.getSize());
+			for(int x=0;x<monde.getSize()[0];x++){
+				for(int z=0;z<monde.getSize()[1];z++){
+					int h = (int)( 64 + (double)( range*(128-Math.abs(hauteur[x][z]))/128 ) );
+					for(int y=0;y<h;y++){
+						monde.setBlock(x, z, y, (short)(3));
+					}
+					monde.setBlock(x, z, h, (short)(2));
+					for(int y=h+1;y<64;y++){
+						monde.setBlock(x, z, y, (short)(8));
+					}
 				}
 			}
+		} catch (BadStateException e) {
+			e.printStackTrace();
 		}
 	}
 	

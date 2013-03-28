@@ -18,7 +18,8 @@ public class Batiment {
 		this.matiereExt=98;
 		this.matiereInt=5;
 		Location d=this.pointDepart(), f=this.pointFinal();
-		this.hauteur = 4 + (int)(((f.getX()-d.getX()+1)*(f.getZ()-d.getZ()+1)/25)*(double)(Math.random()+1));
+		this.hauteur = 4 + (int)(((f.getX()-d.getX()+1)*(f.getZ()-d.getZ()+1)) *(double)(Math.random()+1));
+		System.out.println(this.hauteur);
 		struct = new Structure(f.getX()-d.getX()+1,getHauteur(),f.getZ()-d.getZ()+1);
 		this.dessinerStructure();
 	}

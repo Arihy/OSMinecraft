@@ -61,7 +61,9 @@ public class OscContentHandler implements ContentHandler {
             		OscMapGenerator.way.addLocation(loc);
             		break;
             	case "tag":
-            		OscMapGenerator.way.addTag(attributs.getValue("k"), attributs.getValue("v"));
+            		if(OscMapGenerator.way!=null){
+            			OscMapGenerator.way.addTag(attributs.getValue("k"), attributs.getValue("v"));
+            		}
             		break;
             	default :
             		System.out.println("Balise non traitée :"+localName);
@@ -77,7 +79,7 @@ public class OscContentHandler implements ContentHandler {
     public void endElement(String nameSpaceURI, String localName, String rawName) throws SAXException {
     	switch(localName){
     	case "way":
-    		OscMapGenerator.way.generateWay();
+    		OscMapGenerator.buildWay();
     		break;
     	default:
     		break;

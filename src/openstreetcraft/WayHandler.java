@@ -3,6 +3,10 @@ package openstreetcraft;
 import java.util.Hashtable;
 import java.util.Vector;
 
+import map.Map;
+
+import openstreetcraft.buildingGenerator.Batiment;
+
 public class WayHandler {
 	
 	private Hashtable<String,String> tags;
@@ -21,8 +25,14 @@ public class WayHandler {
 		locations.add(loc);
 	}
 	
-	public void generateWay(){
-		System.out.println("Structure générée.");
+	public void generateWay(Map monde){
+		if(tags.containsKey("building")){
+			Batiment bat = new Batiment(locations);
+			bat.construire(monde);
+			System.out.println("Bâtiment généré");
+		}else{
+			System.out.println("Structure non connue");
+		}
 	}
 	
 }

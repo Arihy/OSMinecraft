@@ -6,6 +6,7 @@ import java.util.Vector;
 import map.Map;
 
 import openstreetcraft.buildingGenerator.Batiment;
+import openstreetcraft.buildingGenerator.Route;
 
 public class WayHandler {
 	
@@ -27,9 +28,13 @@ public class WayHandler {
 	
 	public void generateWay(Map monde){
 		if(tags.containsKey("building")){
-			Batiment bat = new Batiment(locations);
+			Batiment bat = new Batiment(locations,!(tags.containsKey("wall")&&tags.get("wall")=="no"));
 			bat.construire(monde);
 			System.out.println("Bâtiment généré");
+		}else if(tags.containsKey("highway")){
+			Route r = new Route(locations,(short)12,3);
+			System.out.println("Route générée");
+			r.construire(monde);
 		}else{
 			System.out.println("Structure non connue");
 		}

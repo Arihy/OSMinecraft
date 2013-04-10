@@ -96,7 +96,7 @@ public class OscMapGenerator {
 		
             try {
                 @SuppressWarnings("unused")
-				OscSaxParser parser = new OscSaxParser("map.osm");
+				OscSaxParser parser = new OscSaxParser("map6.osm");
             } catch (Throwable t) {
                 t.printStackTrace();
             }

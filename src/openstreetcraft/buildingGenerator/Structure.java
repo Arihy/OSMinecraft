@@ -37,6 +37,8 @@ public class Structure {
 						} catch (BadStateException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
+						} catch (ArrayOutOfBoundsException e2) {
+
 						}
 					}
 				}

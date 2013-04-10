@@ -28,7 +28,7 @@ public class WayHandler {
 	
 	public void generateWay(Map monde){
 		if(tags.containsKey("building")){
-			Batiment bat = new Batiment(locations,!(tags.containsKey("wall")&&tags.get("wall")=="no"));
+			Batiment bat = new Batiment(locations);
 			bat.construire(monde);
 			System.out.println("Bâtiment généré");
 		}else if(tags.containsKey("highway")){

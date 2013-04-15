@@ -59,7 +59,7 @@ public class OscMapGenerator {
 	
 	public static void addNode(String key, Location value){
 		nodes.put(key, value);
-		System.out.println("Noeud ajouté.");
+		System.out.println("Noeud ajoutï¿½.");
 	}
 	
 	public static Location getNodeLocation(String key){
@@ -96,7 +96,7 @@ public class OscMapGenerator {
 		
             try {
                 @SuppressWarnings("unused")
-				OscSaxParser parser = new OscSaxParser("map6.osm");
+				OscSaxParser parser = new OscSaxParser("map.osm");
             } catch (Throwable t) {
                 t.printStackTrace();
             }

@@ -120,6 +120,6 @@ public class Route {
 			}
 		}
 		Location l = this.pointDepart();
-		this.struct.place(monde, l.getX()-epaisseur+1, l.getZ()-epaisseur+1, l.getY()-1,false);
+		this.struct.place(monde, l.getX()-epaisseur+1, l.getZ()-epaisseur+1, l.getY(),false);
 	}
 }

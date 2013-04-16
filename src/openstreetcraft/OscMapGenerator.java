@@ -37,7 +37,7 @@ public class OscMapGenerator {
 		nodes=new Hashtable<String,Location>();
 		for(int i=0;i<size_x;i++){
 			for(int j=0;j<size_z;j++){
-				for(int k=0;k<64;k++){
+				for(int k=0;k<=hauteurSol;k++){
 					try {
 						map.setBlock(i, j, k, (short)2);
 					} catch (BadStateException e) {

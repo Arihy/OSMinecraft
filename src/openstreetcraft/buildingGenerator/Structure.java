@@ -33,12 +33,11 @@ public class Structure {
 				for(int k=y;k<y+getTailleY();k++){
 					if(creuser || getBlock(i-x, j-z, k-y)!=0){
 						try {
-							monde.setBlock(i, j, k, getBlock(i-x, j-z, k-y));
+							if(i>=0 && j>=0 && k>=0 && i<monde.getSize()[0] && j<monde.getSize()[1] && k<monde.getSize()[2]){
+								monde.setBlock(i, j, k, getBlock(i-x, j-z, k-y));
+							}
 						} catch (BadStateException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
-						} catch (ArrayIndexOutOfBoundsException e2) {
-
 						}
 					}
 				}

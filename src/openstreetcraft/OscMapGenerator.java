@@ -53,13 +53,18 @@ public class OscMapGenerator {
 	}
 	
 	public static Location getLocation(double lon, double lat){
-		Location l = new Location(getDist(minlon,lon),hauteurSol,getDist(lat,minlat));
+		Location l=null;
+		try {
+			l = new Location(getDist(minlon,lon),hauteurSol,getDist(lat,minlat)+map.getSize()[1]);
+		} catch (BadStateException e) {
+			e.printStackTrace();
+		}
 		return l;
 	}
 	
 	public static void addNode(String key, Location value){
 		nodes.put(key, value);
-		System.out.println("Noeud ajoutï¿½.");
+		System.out.println("Noeud ajouté.");
 	}
 	
 	public static Location getNodeLocation(String key){

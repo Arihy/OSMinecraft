@@ -2,13 +2,22 @@ package openstreetcraft.buildingGenerator;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+
+import openstreetcraft.Location;
 import map.Map;
 import map.exceptions.BadStateException;
 
 public class Structure {
 	
-	private int[] taille;
-	private short[][][] blocks;
+	protected int[] taille;
+	protected short[][][] blocks;
+	
+	public Structure(){
+		this.taille = new int[3];
+		this.setTailleX(0);
+		this.setTailleY(0);
+		this.setTailleZ(0);
+	}
 	
 	public Structure(int sizeX, int sizeY, int sizeZ){
 		this.taille = new int[3];
@@ -44,6 +53,14 @@ public class Structure {
 			}
 		}
 	}
+	
+	public void place(Map monde, Location loc, boolean creuser){
+		this.place(monde, loc.getX(), loc.getZ(), loc.getY(), creuser);
+	}
+	
+	public void construire(Map monde){
+		this.place(monde, 0, 0, 0, false);
+	}
 
 	public short getBlock(int x, int z, int y) {
 		return blocks[x][z][y];
@@ -77,24 +94,27 @@ public class Structure {
 		this.blocks[position[0]][position[1]][position[2]] = id;
 	}
 
-	public void setTailleX(int taille) {
+	private void setTailleX(int taille) {
 		if(this.taille==null) this.taille = new int[3];
 		this.taille[0] = taille;
 	}
 	
-	public void setTailleY(int taille) {
+	private void setTailleY(int taille) {
 		if(this.taille==null) this.taille = new int[3];
 		this.taille[2] = taille;
 	}
 	
-	public void setTailleZ(int taille) {
+	private void setTailleZ(int taille) {
 		if(this.taille==null) this.taille = new int[3];
 		this.taille[1] = taille;
 	}
 
-	public void setTaille(int[] taille) {
+	public void setTaille(int sizeX, int sizeY, int sizeZ) {
 		if(this.taille==null) this.taille = new int[3];
-		this.taille = taille;
+		this.setTailleX(sizeX);
+		this.setTailleY(sizeY);
+		this.setTailleZ(sizeZ);
+		this.blocks=new short[this.getTailleX()][this.getTailleZ()][this.getTailleY()];
 	}
 	
 	private void loadStructure(FileInputStream fStream) throws IOException{

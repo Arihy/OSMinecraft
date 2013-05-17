@@ -37,7 +37,7 @@ public class Route {
 				x=(int)(coef*z);if(coef>0)x++;
 				curX=p1.getX()+x-d.getX(); curZ=p1.getZ()+z-d.getZ();
 				createRoute(curX+epaisseur-1,curZ+epaisseur-1,epaisseur,map);
-				createLine(curX+epaisseur-1,curZ+epaisseur-1);
+				//createLine(curX+epaisseur-1,curZ+epaisseur-1);
 			}
 		}
 		else{
@@ -49,11 +49,11 @@ public class Route {
 				z=(int)(coef*x);if(coef>0)z++;
 				curX=p1.getX()+x-d.getX(); curZ=p1.getZ()+z-d.getZ();
 				createRoute(curX+epaisseur-1,curZ+epaisseur-1,epaisseur,map);
-				createLine(curX+epaisseur-1,curZ+epaisseur-1);		
+				//createLine(curX+epaisseur-1,curZ+epaisseur-1);		
 			}
 		}
 	}
-	
+	/*
 	public void createLine(int x, int z)
 	{
 		try{
@@ -62,7 +62,7 @@ public class Route {
 		}catch(ArrayIndexOutOfBoundsException e){
 			
 		}
-	}
+	}*/
 	
 	public void createRoute(int x,int z,int ep,Map map){
 		try{

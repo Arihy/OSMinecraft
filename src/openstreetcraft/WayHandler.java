@@ -30,10 +30,16 @@ public class WayHandler {
 	public void generateWay(Map monde){
 		if(tags.containsKey("building")){
 			Constructeur.construireBatiment("NoValue", locations, monde);
-			System.out.println("Bâtiment généré");
+			System.out.println("Bï¿½timent gï¿½nï¿½rï¿½");
 		}else if(tags.containsKey("highway")){
-			Route r = new Route(locations,(short)12,3);
-			System.out.println("Route générée");
+			Route r = new Route(locations,(short)1,3);
+			Route l = new Route(locations,(short)12,1);
+			System.out.println("Route gï¿½nï¿½rï¿½e");
+			r.construire(monde);
+			l.construire(monde);
+		}else if(tags.containsKey("waterway")){
+			Route r = new Route(locations,(short)9,3);
+			System.out.println("Cours d'eau gï¿½nï¿½rï¿½");
 			r.construire(monde);
 		}else{
 			System.out.println("Structure non connue");

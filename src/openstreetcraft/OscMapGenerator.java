@@ -2,7 +2,7 @@ package openstreetcraft;
 
 import java.io.IOException;
 import java.util.Hashtable;
-
+import generators.Perlin;
 import map.Map;
 import map.exceptions.BadStateException;
 
@@ -35,17 +35,7 @@ public class OscMapGenerator {
 		System.out.println("Taille de la carte : "+getDist(minlon,maxlon)+"x"+getDist(minlat,maxlat));
 		map.create("SerializedWorld0", size_x,size_z,size_y);
 		nodes=new Hashtable<String,Location>();
-		for(int i=0;i<size_x;i++){
-			for(int j=0;j<size_z;j++){
-				for(int k=0;k<=hauteurSol;k++){
-					try {
-						map.setBlock(i, j, k, (short)2);
-					} catch (BadStateException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		}
+		Perlin.appliquePerlin(map, 5);
 	}
 	
 	public static int getDist(double minCoord,double maxCoord){

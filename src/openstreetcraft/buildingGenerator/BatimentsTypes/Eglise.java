@@ -8,8 +8,8 @@ import openstreetcraft.buildingGenerator.Constructeur;
 
 public class Eglise extends Batiment {
 
-	public Eglise(Vector<Location> points, int hauteurMin) {
-		super(points, Constructeur.blockID(98, 3), (short)43, hauteurMin);
+	public Eglise(Vector<Location> points, int indexFacade, int hauteurMin) {
+		super(points,indexFacade, Constructeur.blockID(98, 3), (short)43, hauteurMin);
 		this.ajouterVitraux();
 	}
 

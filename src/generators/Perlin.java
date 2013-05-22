@@ -22,9 +22,6 @@ public abstract class Perlin {
 						monde.setBlock(x, z, y, (short)(3));
 					}
 					monde.setBlock(x, z, h, (short)(2));
-					for(int y=h+1;y<64;y++){
-						monde.setBlock(x, z, y, (short)(8));
-					}
 				}
 			}
 		} catch (BadStateException e) {

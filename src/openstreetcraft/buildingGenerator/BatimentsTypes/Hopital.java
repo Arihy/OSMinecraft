@@ -8,8 +8,8 @@ import openstreetcraft.buildingGenerator.Constructeur;
 
 public class Hopital extends Batiment {
 
-	public Hopital(Vector<Location> points) {
-		super(points,(short)155,Constructeur.blockID(35, 3),15);
+	public Hopital(Vector<Location> points, int indexFacade) {
+		super(points,indexFacade,(short)155,Constructeur.blockID(35, 3),15);
 		this.ajouterCroix();
 	}
 	

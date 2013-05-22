@@ -2,7 +2,6 @@ package openstreetcraft.buildingGenerator;
 
 import java.util.Vector;
 import openstreetcraft.Location;
-//import map.Map;
 
 public class Batiment extends Structure{
 	
@@ -10,13 +9,15 @@ public class Batiment extends Structure{
 	private int hauteur;
 	private short matiereExt;
 	private short matiereInt;
+	private int indexFacade;
 
 	//Construction du batiment en pierre taillée et bois à partir des points
-	public Batiment(Vector<Location> points) {
+	public Batiment(Vector<Location> points, int indexFacade) {
 		super();
 		this.points = points;
 		this.matiereExt=98;
 		this.matiereInt=5;
+		this.indexFacade=indexFacade;
 		Location d=Constructeur.pointMin(points), f=Constructeur.pointMax(points);
 		this.hauteur = 4 + (int)(((f.getX()-d.getX()+1)*(f.getZ()-d.getZ()+1)/25) *(double)(Math.random()+1));
 		this.setTaille(f.getX()-d.getX()+1,getHauteur(),f.getZ()-d.getZ()+1);
@@ -24,11 +25,12 @@ public class Batiment extends Structure{
 	}
 	
 	//Construction du batiment à partir des points et des matériaux Extérieur et Intérieurs en paramètres
-	public Batiment(Vector<Location> points, short matiereExt, short matiereInt,int hauteurMin) {
+	public Batiment(Vector<Location> points, int indexFacade, short matiereExt, short matiereInt,int hauteurMin) {
 		super();
 		this.points = points;
 		this.matiereExt=matiereExt;
 		this.matiereInt=matiereInt;
+		this.indexFacade=indexFacade;
 		Location d=Constructeur.pointMin(points), f=Constructeur.pointMax(points);
 		this.hauteur = (int)(hauteurMin*(double)(Math.random()+1));
 		this.setTaille(f.getX()-d.getX()+1,getHauteur(),f.getZ()-d.getZ()+1);
@@ -37,7 +39,7 @@ public class Batiment extends Structure{
 	
 	private void dessinerStructure() {
 		for(int i=0;i<points.size();i++){
-			this.dessinerMur(points.get(i), points.get((i+1)%points.size()), true);	
+			this.dessinerMur(points.get(i), points.get((i+1)%points.size()), (i==indexFacade));	
 		}
 		this.dessinerSol();
 		this.dessinerToit();
@@ -79,7 +81,7 @@ public class Batiment extends Structure{
 				}
 				curY = p1.getY() + y - d.getY();
 				if (curX < this.getTailleX() && curZ < this.getTailleZ() && curY < this.getTailleY()) {
-					if (facade && coef == 0 && (curY==1 || curY==2) && curLong==(distance/2)) {
+					if (facade && (curY==1 || curY==2) && curLong==(distance/2)) {
 						if(curY==1){this.setBlock(curX, curZ, curY, (short)64);}
 						else if(curY==2){this.setBlock(curX, curZ, curY, Constructeur.blockID(64, 8));}
 					} else if (curLong < (distance - 1) && (curLong % 3) == 2
@@ -157,5 +159,10 @@ public class Batiment extends Structure{
 	public int getHauteur(){
 		return this.hauteur;
 	}
+
+	protected int getIndexFacade() {
+		return indexFacade;
+	}
+	
 
 }

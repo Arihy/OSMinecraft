@@ -29,21 +29,26 @@ public class WayHandler {
 	
 	public void generateWay(Map monde){
 		if(tags.containsKey("building")){
-			Constructeur.construireBatiment("NoValue", locations, monde, 0);
+			if(tags.containsKey("amenity")){
+				Constructeur.construireBatiment(tags.get("amenity"), locations, monde, 0);
+			}else{
+				Constructeur.construireBatiment(tags.get("building"), locations, monde, 0);
+			}
 			System.out.println("Batiment genere");
 		}else if(tags.containsKey("highway")){
-			Route r = new Route(locations,(short)1,3);
-			Route l = new Route(locations,(short)12,1);
+			Constructeur.construireRoute(locations,monde);
 			System.out.println("Route genere");
-			r.construire(monde);
-			l.construire(monde);
 		}else if(tags.containsKey("waterway")){
-			Route r = new Route(locations,(short)8,3);
+			Route r = new Route(locations,(short)8,4);
 			System.out.println("Cours d'eau genere");
 			r.construire(monde);
 		}else{
 			System.out.println("Structure non connue");
 		}
+	}
+	
+	public void prepareMap(Map monde){
+		
 	}
 	
 }

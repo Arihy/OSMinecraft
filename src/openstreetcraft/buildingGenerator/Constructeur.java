@@ -16,40 +16,40 @@ public abstract class Constructeur {
 		boolean creuser = false;
 		RGBColor color = new RGBColor(128,128,128);
 		
-		if(value=="house"){
+		if(value.equals("house")){
 			struct = new Batiment(points,indexFacade,(short)45,Constructeur.blockID(5, 2),4);
 			color.setRGB(155, 86, 67);
 		}
-		else if(value=="terrace"){
+		else if(value.equals("terrace")){
 			struct = new Batiment(points,indexFacade,Constructeur.blockID(24, 2),Constructeur.blockID(35, 4),4);
 			color.setRGB(221, 212, 162);
 		}
-		else if(value=="apartments"){
+		else if(value.equals("apartments")){
 			struct = new Batiment(points,indexFacade,(short)112,blockID(35, 12),20);
 			color.setRGB(56, 26, 31);
 		}
-		else if(value=="hotel" || value=="dormitory"){
+		else if(value.equals("hotel") || value.equals("dormitory")){
 			struct = new Batiment(points,indexFacade,(short)1,(short)35,15);
 		}
-		else if(value=="industrial"){
+		else if(value.equals("industrial")){
 			struct = new Batiment(points,indexFacade,(short)42,(short)4,10);
 			color.setRGB(230, 230, 230);
 		}
-		else if(value=="commercial"){
+		else if(value.equals("commercial")){
 			struct = new Batiment(points,indexFacade,(short)17,(short)5,10);
 			color.setRGB(100, 80, 50);
 		}
-		else if(value=="hospital"){
+		else if(value.equals("hospital")){
 			struct = new Hopital(points,indexFacade);
 			color.setRGB(255, 255, 255);
 		}
-		else if(value=="church"){
+		else if(value.equals("church")){
 			struct = new Eglise(points,indexFacade,15);
 		}
-		else if(value=="chapel"){
+		else if(value.equals("chapel")){
 			struct = new Eglise(points,indexFacade,10);
 		}
-		else if(value=="cathedral"){
+		else if(value.equals("cathedral")){
 			struct = new Eglise(points,indexFacade,20);
 		}
 		else{
@@ -60,6 +60,13 @@ public abstract class Constructeur {
 		struct.place(monde,position,creuser);
 		return color;
 		
+	}
+	
+	public static void construireRoute(Vector<Location> points, Map monde){
+		Route r = new Route(points,(short)49,3);
+		Route l = new Route(points,(short)42,1,3,2);
+		r.construire(monde);
+		l.construire(monde);
 	}
 	
 	public static void construireTrottoir(Location depart, Location fin, Map monde) {

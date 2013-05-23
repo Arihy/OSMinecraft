@@ -2,6 +2,8 @@ package openstreetcraft;
 
 import java.io.IOException;
 import java.util.Hashtable;
+import java.util.Vector;
+
 import generators.Perlin;
 import map.Map;
 import map.exceptions.BadStateException;
@@ -16,10 +18,12 @@ public class OscMapGenerator {
 	private static double minlon; 
 	private static double maxlat;
 	private static double maxlon; 
-	public static int nvZoom=100000;
+	public static int nvZoom=110000;
 	public static Map map;
 	private static Hashtable<String,Location> nodes;
 	public static WayHandler way=null;
+	public static Vector<WayHandler> ways;
+	public static String[][] map2d;
 	
 	
 	public static void createMap(double minLat,double minLon,double maxLat,double maxLon){
@@ -34,8 +38,15 @@ public class OscMapGenerator {
 		size_y =256;
 		System.out.println("Taille de la carte : "+getDist(minlon,maxlon)+"x"+getDist(minlat,maxlat));
 		map.create("SerializedWorld0", size_x,size_z,size_y);
+		map2d = new String[size_x][size_z];
 		nodes=new Hashtable<String,Location>();
-		Perlin.appliquePerlin(map, 5);
+		ways=new Vector<WayHandler>();
+		for (int i=0;i<size_x;i++){
+			for(int j=0;j<size_z;j++){
+				map2d[i][j]="";
+			}
+		}
+		Perlin.appliquePerlin(map, 0);
 	}
 	
 	public static int getDist(double minCoord,double maxCoord){
@@ -65,9 +76,15 @@ public class OscMapGenerator {
 		way = new WayHandler();
 	}
 	
-	public static void buildWay(){
-		way.generateWay(map);
+	public static void finishWay(){
+		ways.add(way);
 		way=null;
+	}
+	
+	public static void generateWays(){
+		for(WayHandler w : ways){
+			w.generateWay(map);
+		}
 	}
 	
 	public static void saveMap(){

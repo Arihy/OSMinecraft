@@ -25,6 +25,7 @@ public class OscContentHandler implements ContentHandler {
 
     public void endDocument() throws SAXException {
             System.out.println("Fin de l'analyse des données" );
+            OscMapGenerator.generateWays();
             OscMapGenerator.saveMap();
     }
 
@@ -79,7 +80,7 @@ public class OscContentHandler implements ContentHandler {
     public void endElement(String nameSpaceURI, String localName, String rawName) throws SAXException {
     	switch(localName){
     	case "way":
-    		OscMapGenerator.buildWay();
+    		OscMapGenerator.finishWay();
     		break;
     	default:
     		break;

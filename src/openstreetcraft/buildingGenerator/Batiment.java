@@ -19,7 +19,7 @@ public class Batiment extends Structure{
 		this.matiereInt=5;
 		this.indexFacade=indexFacade;
 		Location d=Constructeur.pointMin(points), f=Constructeur.pointMax(points);
-		this.hauteur = 4 + (int)(((f.getX()-d.getX()+1)*(f.getZ()-d.getZ()+1)/25) *(double)(Math.random()+1));
+		this.hauteur = 4 + (int)(Math.log(((f.getX()-d.getX()+1)*(f.getZ()-d.getZ()+1)))/Math.log(3) *(double)(Math.random()+1));
 		this.setTaille(f.getX()-d.getX()+1,getHauteur(),f.getZ()-d.getZ()+1);
 		this.dessinerStructure();
 	}

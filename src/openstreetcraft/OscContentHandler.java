@@ -9,9 +9,11 @@ import org.xml.sax.helpers.LocatorImpl;
 
 public class OscContentHandler implements ContentHandler {
 	
+	private String filename;
 
-    public OscContentHandler() {
+    public OscContentHandler(String filename) {
             super();
+            this.filename=filename;
             locator = new LocatorImpl();
     }
 
@@ -24,8 +26,8 @@ public class OscContentHandler implements ContentHandler {
     }
 
     public void endDocument() throws SAXException {
-            System.out.println("Fin de l'analyse des données" );
             OscMapGenerator.generateWays();
+            System.out.println("Fin de l'analyse des données" );
             OscMapGenerator.saveMap();
     }
 
@@ -45,7 +47,7 @@ public class OscContentHandler implements ContentHandler {
             		double maxLon = Double.parseDouble(attributs.getValue("maxlon"));
             		double minLat = Double.parseDouble(attributs.getValue("minlat"));
             		double maxLat = Double.parseDouble(attributs.getValue("maxlat"));
-            		OscMapGenerator.createMap(minLat, minLon, maxLat, maxLon);
+            		OscMapGenerator.createMap(this.filename, minLat, minLon, maxLat, maxLon);
             		break;
             	case "node":
             		String key = attributs.getValue("id");

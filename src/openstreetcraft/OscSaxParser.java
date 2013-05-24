@@ -9,9 +9,9 @@ import org.xml.sax.helpers.XMLReaderFactory;
 
 public class OscSaxParser {
 
-        public OscSaxParser(String uri) throws SAXException, IOException {
+        public OscSaxParser(String uri, String filename) throws SAXException, IOException {
                         XMLReader saxReader = XMLReaderFactory.createXMLReader();
-                        saxReader.setContentHandler(new OscContentHandler());
+                        saxReader.setContentHandler(new OscContentHandler(filename));
                         saxReader.parse(uri);
         }
 

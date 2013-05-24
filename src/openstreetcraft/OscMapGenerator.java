@@ -26,7 +26,7 @@ public class OscMapGenerator {
 	public static String[][] map2d;
 	
 	
-	public static void createMap(double minLat,double minLon,double maxLat,double maxLon){
+	public static void createMap(String name, double minLat,double minLon,double maxLat,double maxLon){
 		map = new Map();
 		hauteurSol=64;
 		minlat = minLat;
@@ -37,7 +37,7 @@ public class OscMapGenerator {
 		size_z = getDist(minlat,maxlat);
 		size_y =256;
 		System.out.println("Taille de la carte : "+getDist(minlon,maxlon)+"x"+getDist(minlat,maxlat));
-		map.create("SerializedWorld0", size_x,size_z,size_y);
+		map.create(name, size_x,size_z,size_y);
 		map2d = new String[size_x][size_z];
 		nodes=new Hashtable<String,Location>();
 		ways=new Vector<WayHandler>();
@@ -108,7 +108,7 @@ public class OscMapGenerator {
 		
             try {
                 @SuppressWarnings("unused")
-				OscSaxParser parser = new OscSaxParser("map.osm");
+				OscSaxParser parser = new OscSaxParser("map2.osm","SerializedWorld0");
             } catch (Throwable t) {
                 t.printStackTrace();
             }

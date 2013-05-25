@@ -1,22 +1,29 @@
 package openstreetcraft.buildingGenerator.BatimentsTypes;
 
 import java.util.Vector;
-
+import openstreetcraft.IDBlock;
 import openstreetcraft.Location;
 import openstreetcraft.buildingGenerator.Batiment;
-import openstreetcraft.buildingGenerator.Constructeur;
 
 public class Eglise extends Batiment {
 
+	/**
+	 * Créer une Eglise.
+	 * @param points les Location délimitant la surface de l'eglise.
+	 * @param indexFacade le numéro du premier point de la façade.
+	 * @param hauteurMin la hauteur minimale de l'église..
+	 */
 	public Eglise(Vector<Location> points, int indexFacade, int hauteurMin) {
-		super(points,indexFacade, Constructeur.blockID(98, 3), (short)43, hauteurMin);
+		super(points,indexFacade, IDBlock.blockData(IDBlock.TAILLEE, 3), IDBlock.DBLDALLE, hauteurMin);
 		this.ajouterVitraux();
 	}
-
+	/**
+	 * Crée un vitrail et l'ajoute en façade.
+	 */
 	private void ajouterVitraux() {
 		if (this.getTailleX() >= 6) {
 			int x = this.getTailleX() / 2, z = 0, y = this.getTailleY() - 5;
-			short id = (short)89;
+			short id = IDBlock.LUMINITE;
 			while (this.getBlock(x, z, y) == 0) {
 				z++;
 			}

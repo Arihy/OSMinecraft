@@ -1,4 +1,4 @@
-package openstreetcraft.buildingGenerator;
+package openstreetcraft;
 
 public class RGBColor {
 	

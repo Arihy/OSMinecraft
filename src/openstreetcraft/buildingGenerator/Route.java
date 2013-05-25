@@ -1,7 +1,6 @@
 package openstreetcraft.buildingGenerator;
 
 import java.util.Vector;
-
 import openstreetcraft.Location;
 import map.Map;
 import map.exceptions.BadStateException;
@@ -16,27 +15,46 @@ public class Route {
 	private int lgEspace=0;
 	private int lgTrait=0;
 	
+	/**
+	 * Constructeur de la classe Route.
+	 * @param points la liste des points de la route.
+	 * @param mat la matière de la route.
+	 * @param ep l'épaisseur de la route.
+	 */
 	public Route(Vector<Location> points,short mat,int ep){
 		epaisseur=ep;
 		this.points = points;
-		Location d=this.pointDepart(), f=this.pointFinal();
+		Location d=Constructeur.pointMin(this.points), f=Constructeur.pointMax(this.points);
 		struct = new Structure(f.getX()-d.getX()+1+2*(epaisseur-1),1,f.getZ()-d.getZ()+1+2*(epaisseur-1));
 		matiere=mat;
 	}
-	
+	/**
+	 * Constructeur de la classe Route en pointillé
+	 * @param points la liste des points de la route.
+	 * @param mat la matière de la route.
+	 * @param ep l'épaisseur de la route.
+	 * @param lgTrait longueur d'un pointillé.
+	 * @param lgEspace longueur d'un espace entre deux pointillés.
+	 */
 	public Route(Vector<Location> points,short mat,int ep,int lgTrait,int lgEspace){
 		epaisseur=ep;
 		this.points = points;
 		this.lgEspace = lgEspace;
 		this.lgTrait = lgTrait;
-		Location d=this.pointDepart(), f=this.pointFinal();
+		Location d=Constructeur.pointMin(this.points), f=Constructeur.pointMax(this.points);
 		struct = new Structure(f.getX()-d.getX()+1+2*(epaisseur-1),1,f.getZ()-d.getZ()+1+2*(epaisseur-1));
 		matiere=mat;
 	}
-	
+	/**
+	 * Construit une route droite entre deux Location
+	 * @param pDep la Location de départ.
+	 * @param pFin la Location d'arrivée.
+	 * @param map la Map de construction.
+	 * @throws BadStateException si Map non initialisée.
+	 */
 	private void traceRouteDroite(Location pDep,Location pFin, Map map) throws BadStateException
 	{
-		Location d=this.pointDepart(), p1, p2;
+		Location d=Constructeur.pointMin(this.points), p1, p2;
 		double coef;
 		int x, z, curX, curZ, distX=Math.abs(pFin.getX()-pDep.getX())+1, distZ=Math.abs(pFin.getZ()-pDep.getZ())+1;
 		
@@ -67,7 +85,13 @@ public class Route {
 			}
 		}
 	}
-	
+	/**
+	 * Construit un morceau de route sur toute l'épaisseur.
+	 * @param x coordonnée en x.
+	 * @param z coordonnée en z.
+	 * @param ep épaisseur de la route.
+	 * @param map la Map sur laquelle se construit la route.
+	 */
 	public void createRoute(int x,int z,int ep,Map map){
 		try{
 				struct.setBlock(x, z, 0, this.matiere);
@@ -80,53 +104,11 @@ public class Route {
 			createRoute(x,z+1,ep-1,map);
 			createRoute(x+1,z-1,ep-1,map);
 		}
-	}
-	
-	public Location pointDepart(){
-		Location point;
-		int X,Y,Z,n;
-		
-		X=points.firstElement().getX();
-		Y=points.firstElement().getY();
-		Z=points.firstElement().getZ();
-		for(n=1;n<this.getSize();n++){
-			if(points.get(n).getX()<X)
-				X=points.get(n).getX();
-			if(points.get(n).getY()<Y)
-				Y=points.get(n).getY();
-			if(points.get(n).getZ()<Z)
-				Z=points.get(n).getZ();
-		}
-		point = new Location(X,Y,Z);
-		
-		return point;
-	}
-	
-	public Location pointFinal(){
-		Location point;
-		int X,Y,Z,n;
-		
-		X=points.firstElement().getX();
-		Y=points.firstElement().getY();
-		Z=points.firstElement().getZ();
-		for(n=1;n<this.getSize();n++){
-			if(points.get(n).getX()>X)
-				X=points.get(n).getX();
-			if(points.get(n).getY()>Y)
-				Y=points.get(n).getY();
-			if(points.get(n).getZ()>Z)
-				Z=points.get(n).getZ();
-		}
-		point = new Location(X,Y,Z);
-		
-		return point;
-	}
-	
-	public int getSize(){
-		return points.size();
-	}
-		
-	
+	}		
+	/**
+	 * Construit entièrement la route.
+	 * @param monde la Map où construire la route.
+	 */
 	public void construire(Map monde){
 		for(int i=0;i<points.size()-1;i++){
 			try {
@@ -135,7 +117,8 @@ public class Route {
 				e.printStackTrace();
 			}
 		}
-		Location l = this.pointDepart();
+		Location l=Constructeur.pointMin(this.points);
 		this.struct.place(monde, l.getX()-epaisseur+1, l.getZ()-epaisseur+1, l.getY(),false);
 	}
+	
 }

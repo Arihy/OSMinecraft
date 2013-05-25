@@ -14,19 +14,32 @@ public class WayHandler {
 	private Hashtable<String,String> tags;
 	private Vector<Location> locations;
 	
+	/**
+	 * Initialise sans paramètre.
+	 */
 	public WayHandler() {
 		tags = new Hashtable<String,String>();
 		locations = new Vector<Location>();
 	}
-	
+	/**
+	 * Ajoute un tag à la collection.
+	 * @param key la clé du tag à ajouter.
+	 * @param value la valeur du tag à ajouter.
+	 */
 	public void addTag(String key, String value){
 		tags.put(key, value);
 	}
-	
+	/**
+	 * Ajoute une Location à la liste.
+	 * @param loc la Location à ajouter.
+	 */
 	public void addLocation(Location loc){
 		locations.add(loc);
 	}
-	
+	/**
+	 * Génère bâtiments et routes.
+	 * @param monde la Map où l'objet sera généré.
+	 */
 	public void generateWay(Map monde){
 		if(tags.containsKey("building")){
 			if(tags.containsKey("amenity")){

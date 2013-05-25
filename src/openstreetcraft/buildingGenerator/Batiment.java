@@ -1,6 +1,8 @@
 package openstreetcraft.buildingGenerator;
 
 import java.util.Vector;
+
+import openstreetcraft.IDBlock;
 import openstreetcraft.Location;
 
 public class Batiment extends Structure{
@@ -11,19 +13,31 @@ public class Batiment extends Structure{
 	private short matiereInt;
 	private int indexFacade;
 
+	/**
+	 * Constructeur de la classe batiment
+	 * @param points les Location délimitant la surface du bâtiment
+	 * @param indexFacade l'indice du premier point de la façade du batiment.
+	 */
 	//Construction du batiment en pierre taillée et bois à partir des points
 	public Batiment(Vector<Location> points, int indexFacade) {
 		super();
 		this.points = points;
-		this.matiereExt=98;
-		this.matiereInt=5;
+		this.matiereExt=IDBlock.TAILLEE;
+		this.matiereInt=IDBlock.PLANCHE;
 		this.indexFacade=indexFacade;
 		Location d=Constructeur.pointMin(points), f=Constructeur.pointMax(points);
 		this.hauteur = 4 + (int)(Math.log(((f.getX()-d.getX()+1)*(f.getZ()-d.getZ()+1)))/Math.log(3) *(double)(Math.random()+1));
 		this.setTaille(f.getX()-d.getX()+1,getHauteur(),f.getZ()-d.getZ()+1);
 		this.dessinerStructure();
 	}
-	
+	/**
+	 * Constructeur de la classe batiment
+	 * @param points les Location délimitant la surface du bâtiment.
+	 * @param indexFacade l'indice du premier point de la façade du batiment.
+	 * @param matiereExt la matière des murs.
+	 * @param matiereInt la matière du sol.
+	 * @param hauteurMin la hauteur minimale du batiment.
+	 */
 	//Construction du batiment à partir des points et des matériaux Extérieur et Intérieurs en paramètres
 	public Batiment(Vector<Location> points, int indexFacade, short matiereExt, short matiereInt,int hauteurMin) {
 		super();
@@ -36,7 +50,9 @@ public class Batiment extends Structure{
 		this.setTaille(f.getX()-d.getX()+1,getHauteur(),f.getZ()-d.getZ()+1);
 		this.dessinerStructure();
 	}
-	
+	/**
+	 * Construit le bâtiment.
+	 */
 	private void dessinerStructure() {
 		for(int i=0;i<points.size();i++){
 			this.dessinerMur(points.get(i), points.get((i+1)%points.size()), (i==indexFacade));	
@@ -44,7 +60,12 @@ public class Batiment extends Structure{
 		this.dessinerSol();
 		this.dessinerToit();
 	}
-	
+	/**
+	 * Construire un mu entre deux Location.
+	 * @param pDep première extrémité du mur.
+	 * @param pFin seconde extrémité du mur.
+	 * @param facade indique si le mur à construire est une façade ou non.
+	 */
 	private void dessinerMur(Location pDep, Location pFin, boolean facade){
 		Location d=Constructeur.pointMin(this.points), p1, p2;
 		double coef;
@@ -82,14 +103,14 @@ public class Batiment extends Structure{
 				curY = p1.getY() + y - d.getY();
 				if (curX < this.getTailleX() && curZ < this.getTailleZ() && curY < this.getTailleY()) {
 					if (facade && (curY==1 || curY==2) && curLong==(distance/2)) {
-						if(curY==1){this.setBlock(curX, curZ, curY, (short)64);}
-						else if(curY==2){this.setBlock(curX, curZ, curY, Constructeur.blockID(64, 8));}
+						if(curY==1){this.setBlock(curX, curZ, curY, IDBlock.PORTE);}
+						else if(curY==2){this.setBlock(curX, curZ, curY, IDBlock.blockData(IDBlock.PORTE, 8));}
 					} else if (curLong < (distance - 1) && (curLong % 3) == 2
 							&& curY < (this.getTailleY() - 1) && (curY % 5) > 1 && (curY % 5) < 4) {
 						if (coef == 0) {
-							this.setBlock(curX, curZ, curY, (short) 102);
+							this.setBlock(curX, curZ, curY, IDBlock.VITRE);
 						} else {
-							this.setBlock(curX, curZ, curY, (short) 20);
+							this.setBlock(curX, curZ, curY, IDBlock.VERRE);
 						}
 					} else {
 						this.setBlock(curX, curZ, curY, this.matiereExt);
@@ -99,7 +120,9 @@ public class Batiment extends Structure{
 		}
 	}
 	
-	
+	/**
+	 * Remplit le sol du bâtiment.
+	 */
 	private void dessinerSol(){
 		for(int x=0;x<this.getTailleX();x++){
 			for(int z=0;z<this.getTailleZ();z++){
@@ -117,10 +140,12 @@ public class Batiment extends Structure{
 			remplirZone(this.getTailleX()-1,z,0,(short)0,this.matiereInt);
 		}			
 	}
-	
+	/**
+	 * Construit le toit du batiment.
+	 */
 	private void dessinerToit(){
-		short matiere = (short)((this.getTailleY()<10 || matiereExt%256==5 || matiereExt%256==17)? 256+5 : (getHauteur()<24)? 43 : 1);
-		short dalle = (short)((this.getTailleY()<10 || matiereExt%256==5 || matiereExt%256==17)? (256+126) : 44);
+		short matiere = (short)((this.getTailleY()<10 || matiereExt%256==IDBlock.PLANCHE || matiereExt%256==IDBlock.BOIS)? IDBlock.blockData(5,1) : (getHauteur()<24)? IDBlock.DBLDALLE : IDBlock.ROCHE);
+		short dalle = (short)((this.getTailleY()<10 || matiereExt%256==IDBlock.PLANCHE || matiereExt%256==IDBlock.BOIS)? IDBlock.blockData(IDBlock.DALLEBOIS,1) : IDBlock.DALLE);
 		int h = getHauteur()-1;
 		for(int x=0;x<this.getTailleX();x++){
 			for(int z=0;z<this.getTailleZ();z++){
@@ -139,7 +164,14 @@ public class Batiment extends Structure{
 			remplirZone(this.getTailleX()-1,z,h,(short)0,matiere);
 		}	
 	}
-	
+	/**
+	 * Remplir récursivement une zone à partir d'un point.
+	 * @param x coordonnée en x du point de départ.
+	 * @param z coordonnée en z du point de départ.
+	 * @param y coordonnée en y du point de départ.
+	 * @param matiereEntrante la matière qui remplit ou remplace.
+	 * @param matiereSortante la matière qui est remplacée.
+	 */
 	private void remplirZone(int x, int z, int y, short matiereEntrante, short matiereSortante){
 		if(x>=0 && y>=0 && z>=0 && x<this.getTailleX()
 				&& y<this.getTailleY() && z<this.getTailleZ()
@@ -151,15 +183,24 @@ public class Batiment extends Structure{
 			remplirZone(x,z-1,y,matiereEntrante,matiereSortante);
 		}
 	}
-
+	/**
+	 * Retourne le nombre de Locations.
+	 * @return le nombre de Locations.
+	 */
 	public int getSize(){
 		return points.size();
 	}
-	
+	/**
+	 * Retourne la hauteur du batiment.
+	 * @return la hauteur du batiment
+	 */
 	public int getHauteur(){
 		return this.hauteur;
 	}
-
+	/**
+	 * Retourne l'indice du premier point de la façade.
+	 * @return l'indice du premier point de la façade.
+	 */
 	protected int getIndexFacade() {
 		return indexFacade;
 	}

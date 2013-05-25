@@ -4,8 +4,9 @@ OSMinecraft
 Projet utilisant OpenStreetMap pour créer une ville dans Minecraft.
 
 
-Mode d'emploie
+Mode d'emploi
 --------------
+Il est supposé que vous savez déjà utiliser craftbukkit (configuration et lancement).
 
  1. Exporter une map depuis openstreetmap.org
  2. La mettre à la racine du projet et lancer la compilation

@@ -7,7 +7,6 @@ import map.Map;
 
 //import openstreetcraft.buildingGenerator.Batiment;
 import openstreetcraft.buildingGenerator.Constructeur;
-import openstreetcraft.buildingGenerator.Route;
 
 public class WayHandler {
 	
@@ -15,30 +14,30 @@ public class WayHandler {
 	private Vector<Location> locations;
 	
 	/**
-	 * Initialise sans paramètre.
+	 * Initialise sans paramï¿½tre.
 	 */
 	public WayHandler() {
 		tags = new Hashtable<String,String>();
 		locations = new Vector<Location>();
 	}
 	/**
-	 * Ajoute un tag à la collection.
-	 * @param key la clé du tag à ajouter.
-	 * @param value la valeur du tag à ajouter.
+	 * Ajoute un tag ï¿½ la collection.
+	 * @param key la clï¿½ du tag ï¿½ ajouter.
+	 * @param value la valeur du tag ï¿½ ajouter.
 	 */
 	public void addTag(String key, String value){
 		tags.put(key, value);
 	}
 	/**
-	 * Ajoute une Location à la liste.
-	 * @param loc la Location à ajouter.
+	 * Ajoute une Location ï¿½ la liste.
+	 * @param loc la Location ï¿½ ajouter.
 	 */
 	public void addLocation(Location loc){
 		locations.add(loc);
 	}
 	/**
-	 * Génère bâtiments et routes.
-	 * @param monde la Map où l'objet sera généré.
+	 * Gï¿½nï¿½re bï¿½timents et routes.
+	 * @param monde la Map oï¿½ l'objet sera gï¿½nï¿½rï¿½.
 	 */
 	public void generateWay(Map monde){
 		if(tags.containsKey("building")){
@@ -52,9 +51,8 @@ public class WayHandler {
 			Constructeur.construireRoute(locations,monde);
 			System.out.println("Route genere");
 		}else if(tags.containsKey("waterway")){
-			Route r = new Route(locations,(short)8,4);
+			Constructeur.construireEau(locations,monde);
 			System.out.println("Cours d'eau genere");
-			r.construire(monde);
 		}else{
 			System.out.println("Structure non connue");
 		}

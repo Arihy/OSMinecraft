@@ -12,12 +12,12 @@ import map.exceptions.BadStateException;
 public abstract class Constructeur {
 	
 	/**
-	 * Construire un batiment à partir d'un tag et d'une liste de points.
-	 * Ne construit rien mais faire appel à la classe correspondant au tag.
+	 * Construire un batiment ï¿½ partir d'un tag et d'une liste de points.
+	 * Ne construit rien mais faire appel ï¿½ la classe correspondant au tag.
 	 * @param value la valeur du tag.
 	 * @param points la liste de points du contour du batiment.
-	 * @param monde la Map où construire le batiment.
-	 * @param indexFacade l'indice du premier point de la façade du batiment.
+	 * @param monde la Map oï¿½ construire le batiment.
+	 * @param indexFacade l'indice du premier point de la faï¿½ade du batiment.
 	 * @return une couleur pour l'affichage.
 	 */
 	public static RGBColor construireBatiment(String value, Vector<Location> points, Map monde, int indexFacade){
@@ -73,7 +73,7 @@ public abstract class Constructeur {
 		
 	}
 	/**
-	 * Appelle les constructeurs de la route avec les matériaux requis.
+	 * Appelle les constructeurs de la route avec les matï¿½riaux requis.
 	 * @param points la suite de points de la route.
 	 * @param monde la Map sur laquelle se construit la route.
 	 */
@@ -84,10 +84,19 @@ public abstract class Constructeur {
 		l.construire(monde);
 	}
 	/**
-	 * Construit un trottoir carré autour du batiment.
+	 * Appelle le constructeur de l'eau.
+	 * @param points la suite de points du cours d'eau.
+	 * @param monde la Map sur laquelle se construit le cours d'eau.
+	 */
+	public static void construireEau(Vector<Location> points, Map monde){
+		Eau r = new Eau(points,3);
+		r.construire(monde);
+	}
+	/**
+	 * Construit un trottoir carrï¿½ autour du batiment.
 	 * @param depart le point minimal du batiment.
 	 * @param fin le point maximal du batiment.
-	 * @param monde la Map où se construit le trottoir.
+	 * @param monde la Map oï¿½ se construit le trottoir.
 	 */
 	public static void construireTrottoir(Location depart, Location fin, Map monde) {
 		int y=depart.getY();
@@ -109,10 +118,10 @@ public abstract class Constructeur {
 		}
 	}
 	/**
-	 * Réajuste le sol au niveau d'un bloc.
-	 * Utile combler le trottoir en cas de Perlin incohérent.
-	 * @param point l'endroit où il faut réajuster.
-	 * @param monde la Map dont le sol doit être réajusté.
+	 * Rï¿½ajuste le sol au niveau d'un bloc.
+	 * Utile combler le trottoir en cas de Perlin incohï¿½rent.
+	 * @param point l'endroit oï¿½ il faut rï¿½ajuster.
+	 * @param monde la Map dont le sol doit ï¿½tre rï¿½ajustï¿½.
 	 */
 	public static void mettreNiveau(Location point, Map monde){
 		try {
@@ -131,9 +140,9 @@ public abstract class Constructeur {
 		}
 	}
 	/**
-	 * Le point théorique de coordonnées minimales entre les Locations.
+	 * Le point thï¿½orique de coordonnï¿½es minimales entre les Locations.
 	 * @param points la liste des Locations
-	 * @return un point ayant les coordonnées les plus basses de la liste.
+	 * @return un point ayant les coordonnï¿½es les plus basses de la liste.
 	 */
 	public static Location pointMin(Vector<Location> points){
 		Location point;
@@ -155,9 +164,9 @@ public abstract class Constructeur {
 		return point;
 	}
 	/**
-	 * Le point théorique de coordonnées maximales entre les Locations.
+	 * Le point thï¿½orique de coordonnï¿½es maximales entre les Locations.
 	 * @param points la liste des Locations
-	 * @return un point ayant les coordonnées les plus hautes de la liste.
+	 * @return un point ayant les coordonnï¿½es les plus hautes de la liste.
 	 */
 	public static Location pointMax(Vector<Location> points){
 		Location point;
